@@ -1,0 +1,144 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    var cartCount = HttpContextAccessor?.HttpContext?.Session.GetInt32("CartCount") ?? 0;
+    var user = HttpContextAccessor?.HttpContext?.User;
+    var isAuthenticated = user?.Identity?.IsAuthenticated ?? false;
+    var userName = user?.FindFirst(ClaimTypes.Name)?.Value ?? "Tài khoản";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Store - Cửa hàng thú cưng</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <style>
+        .banner {
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-card, .promo-card, .review-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .product-card:hover, .promo-card:hover, .review-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .cart-icon {
+            position: relative;
+        }
+
+            .cart-icon::after {
+                content: '@cartCount';
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background: #ef4444;
+                color: white;
+                border-radius: 50%;
+                padding: 2px 8px;
+                font-size: 12px;
+            }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">Pet Store</div>
+            <ul class="flex space-x-6">
+                <li><a asp-controller="Home" asp-action="Index" class="text-gray-700 hover:text-blue-600">Trang chủ</a></li>
+                <li><a asp-controller="Danhmuc" asp-action="Index" class="text-gray-700 hover:text-blue-600">Sản phẩm</a></li>
+                <li><a asp-controller="Dichvu" asp-action="Index" class="text-gray-700 hover:text-blue-600">Dịch vụ</a></li>
+                <li><a asp-controller="Contact" asp-action="Index" class="text-gray-700 hover:text-blue-600">Liên hệ</a></li>
+            </ul>
+
+            <div class="flex space-x-4 items-center relative" x-data="{ open: false }">
+                <a asp-controller="Cart" asp-action="Index" class="cart-icon relative">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </a>
+
+                @if (isAuthenticated)
+                {
+                    <div class="relative">
+                        <button x-on:click="open = !open" class="flex items-center text-gray-700 hover:text-blue-600 font-medium focus:outline-none">
+                            <span>@userName</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="open" x-on:click.outside="open = false"
+                             x-transition
+                             class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-50">
+                           
+
+                            <form method="post" asp-area="Identity" asp-page="/Account/Logout"
+                                  asp-route-returnUrl="@Url.Action("Index", "Home")">
+                                <button type="submit"
+                                        class="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm text-gray-700">
+                                    Đăng xuất
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="text-gray-700 hover:text-blue-600">Đăng nhập</a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Pet Store</h3>
+                    <p>Cung cấp các sản phẩm và dịch vụ tốt nhất cho thú cưng của bạn.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liên kết nhanh</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-blue-400">Trang chủ</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Sản phẩm</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liên hệ</h3>
+                    <p>Email: support@petstore.vn</p>
+                    <p>Hotline: 0123 456 789</p>
+                    <p>Địa chỉ: 123 Đường Pet, TP.HCM</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© 2025 Pet Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

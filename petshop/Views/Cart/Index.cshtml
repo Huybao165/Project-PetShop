@@ -1,0 +1,48 @@
+﻿@model List<petshop.Models.Cart>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<section class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Giỏ hàng của bạn</h2>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="cart-item flex items-center border-b py-4">
+                <img src="@item.product.image" alt="@item.product.name" class="w-20 h-20 object-cover rounded-md mr-4" />
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold">@item.product.name</h3>
+                    <p class="text-gray-600">@item.product.price.ToString("N0") VNĐ x @item.Qty</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <form method="post" asp-action="Decrease" asp-controller="Cart">
+                        <input type="hidden" name="id" value="@item.product.Id" />
+                        <button class="decrease-qty px-2 py-1 bg-gray-200 rounded">-</button>
+                    </form>
+                    <input type="number" value="@item.Qty" min="1" class="w-12 text-center border rounded" readonly />
+                    <form method="post" asp-action="Increase" asp-controller="Cart">
+                        <input type="hidden" name="id" value="@item.product.Id" />
+                        <button class="increase-qty px-2 py-1 bg-gray-200 rounded">+</button>
+                    </form>
+                    <a asp-action="Remove" asp-controller="Cart" asp-route-id="@item.product.Id" class="remove-item text-red-600">Xóa</a>
+                </div>
+            </div>
+        }
+
+        <div class="flex justify-between items-center bg-white rounded-lg shadow p-6 mt-6">
+            <h3 class="text-xl font-semibold">Tổng cộng: <span>@ViewBag.Total</span></h3>
+            <a asp-action="Checkout" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Thanh toán</a>
+        </div>
+
+        <div class="mt-4 text-right">
+            <a asp-action="Clear" class="text-red-600 hover:underline">Xoá toàn bộ giỏ hàng</a>
+        </div>
+    }
+    else
+    {
+        <p class="text-center text-gray-600">Không có sản phẩm nào trong giỏ hàng.</p>
+    }
+</section>

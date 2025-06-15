@@ -1,0 +1,56 @@
+﻿@model IEnumerable<petshop.Models.dichvu>
+
+<style>
+  
+    .banner {
+        background-image: url('https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+</style>
+@if (TempData["Success"] != null)
+{
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-center">
+        @TempData["Success"]
+    </div>
+}
+<section class="banner">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold mb-4">Dịch vụ cho thú cưng</h1>
+        <p class="text-lg mb-6">Chăm sóc toàn diện để thú cưng của bạn luôn khỏe mạnh và vui vẻ!</p>
+        <a href="#services" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Khám phá dịch vụ</a>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Dịch vụ của chúng tôi</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Service Card -->
+        @foreach(var item in Model)
+        {
+            <div class="service-card bg-white rounded-lg shadow p-6 text-center">
+                <img src="@item.img" alt="Chăm sóc thú cưng" class="w-full h-48 object-cover rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">@item.dichvuName</h3>
+                <p class="text-gray-600 mb-4">@item.dichvuDescription</p>
+                <p class="text-gray-600 font-semibold">Từ @item.dichviPrice.ToString("N0") VNĐ</p>
+                <a asp-action="DatLich" asp-controller="Dichvu" asp-route-id="@item.Id" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Đặt lịch</a>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-blue-50 py-12">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Đặt lịch ngay hôm nay!</h2>
+        <p class="text-gray-600 mb-6">Hãy để chúng tôi chăm sóc thú cưng của bạn với các dịch vụ chuyên nghiệp và tận tâm.</p>
+        <a <a asp-controller="Contact" asp-action="Index" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Liên hệ ngay</a>
+    </div>
+</section>

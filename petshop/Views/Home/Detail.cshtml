@@ -1,0 +1,26 @@
+﻿@model petshop.Models.product
+<section class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <img src="@Model.image" class="w-full h-96 object-cover rounded-md">
+        </div>
+        <div>
+            <h2 class="text-3xl font-bold mb-4">@Model.name</h2>
+            <p class="text-gray-600 text-2xl mb-4">@Model.price.ToString("N0")</p>
+            <p class="text-gray-700 mb-6">  @Model.description</p>
+            <div class="flex items-center mb-6">
+                <label for="quantity" class="mr-4">Số lượng:</label>
+                <input type="number" id="quantity" min="1" value="1" class="border rounded w-16 px-2 py-1">
+            </div>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id">
+                <button class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Thêm vào giỏ</button>
+            </a>
+            
+        </div>
+    </div>
+    <!-- Additional Info -->
+    <div class="mt-12">
+        <h3 class="text-2xl font-semibold mb-4">Thông tin chi tiết</h3>
+        <p class="text-gray-600">@Model.detail</p>
+    </div>
+</section>

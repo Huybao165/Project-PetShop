@@ -1,0 +1,48 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section class="container mx-auto px-4 py-12">
+            <div class="form-container bg-white rounded-lg shadow p-6 max-w-md mx-auto">
+                <h2 class="text-2xl font-bold text-center mb-6">Đăng nhập</h2>
+
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-red-600 mb-4"></div>
+
+                    <div class="mb-4">
+                        <label for="Input_Email" class="block text-gray-700">Email</label>
+                        <input type="email" id="Input_Email" name="Input.Email" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Input_Password" class="block text-gray-700">Mật khẩu</label>
+                        <input type="password" id="Input_Password" name="Input.Password" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" id="Input_RememberMe" name="Input.RememberMe" class="mr-2">
+                        <label for="Input_RememberMe" class="text-gray-700">Ghi nhớ đăng nhập</label>
+                    </div>
+
+                    <div class="flex justify-between mb-4 text-sm">
+                        <a asp-page="./ForgotPassword" class="text-blue-600 hover:underline">Quên mật khẩu?</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-blue-600 hover:underline">Đăng ký</a>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700">
+                        Đăng nhập
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

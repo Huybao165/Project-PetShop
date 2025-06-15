@@ -1,0 +1,104 @@
+﻿@model petshop.Models.OrderViewModel
+
+<style>
+    .checkout-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+        .checkout-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .checkout-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .checkout-container label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .checkout-container .form-control {
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fefefe;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .checkout-container .text-danger {
+            font-size: 13px;
+            color: #e74c3c;
+        }
+
+        .checkout-container .btn-confirm {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .checkout-container .btn-confirm:hover {
+                background-color: #218838;
+            }
+
+        .checkout-container .btn-back {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+</style>
+
+<div class="checkout-container">
+    <h2>Thông Tin Thanh Toán</h2>
+
+    <form asp-action="Checkout" method="post">
+        <div class="form-group">
+            <label asp-for="FullName">Họ và Tên</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone">Số Điện Thoại</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address">Địa Chỉ Giao Hàng</label>
+            <textarea asp-for="Address" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn-confirm">Xác Nhận Đặt Hàng</button>
+    </form>
+
+    <a asp-action="Index" class="btn btn-outline-secondary btn-back">← Quay Lại Giỏ Hàng</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

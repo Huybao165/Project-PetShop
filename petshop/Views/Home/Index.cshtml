@@ -1,0 +1,110 @@
+﻿@model IEnumerable<petshop.Models.product>
+<section class="banner relative">
+    <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src="~/0615.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+    </video>
+
+    <div class="relative z-10 text-center text-white px-4">
+        <h1 class="text-4xl font-bold mb-4">Chào mừng đến với Pet Store</h1>
+        <p class="text-lg mb-6">Yêu thương thú cưng của bạn với những sản phẩm chất lượng nhất!</p>
+        <a asp-controller="Danhmuc" asp-action="Index" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">Mua sắm ngay</a>
+    </div>
+
+</section>
+
+
+<!-- Product Section -->
+<section class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Sản phẩm nổi bật</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Product Card -->
+        @foreach(var item in Model)
+        {
+            <div class="product-card bg-white rounded-lg shadow p-4">
+                <a asp-controller="Home" asp-action="Detail" asp-route-Id="@item.Id"><img src="@item.image"></a>
+                <h3 class="text-lg font-semibold">@item.name</h3>
+                <p class="text-gray-600">@item.price.ToString("N0")</p>
+                <form  asp-controller="Cart" asp-action="Add" method="post">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Thêm vào giỏ</button>
+                </form>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Promotion Section -->
+<section class="bg-blue-50 py-12">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Ưu đãi đặc biệt</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="promo-card bg-white rounded-lg shadow p-6 flex items-center">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Khuyến mãi" class="w-32 h-32 object-cover rounded-md mr-4">
+                <div>
+                    <h3 class="text-xl font-semibold">Giảm 20% cho thức ăn thú cưng</h3>
+                    <p class="text-gray-600">Áp dụng cho tất cả các loại thức ăn trong tháng này!</p>
+                    <a href="#" class="text-blue-600 hover:underline">Xem ngay</a>
+                </div>
+            </div>
+            <div class="promo-card bg-white rounded-lg shadow p-6 flex items-center">
+                <img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Khuyến mãi" class="w-32 h-32 object-cover rounded-md mr-4">
+                <div>
+                    <h3 class="text-xl font-semibold">Miễn phí giao hàng</h3>
+                    <p class="text-gray-600">Cho đơn hàng trên 1.000.000 VNĐ!</p>
+                    <a href="#" class="text-blue-600 hover:underline">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Đánh giá từ khách hàng</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="review-card bg-white rounded-lg shadow p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Khách hàng" class="w-16 h-16 rounded-full mx-auto mb-4">
+            <p class="text-gray-600 italic">"Sản phẩm chất lượng, giao hàng nhanh, thú cưng của tôi rất thích!"</p>
+            <p class="mt-4 font-semibold">Nguyễn An</p>
+        </div>
+        <div class="review-card bg-white rounded-lg shadow p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Khách hàng" class="w-16 h-16 rounded-full mx-auto mb-4">
+            <p class="text-gray-600 italic">"Dịch vụ chăm sóc khách hàng tuyệt vời, sẽ tiếp tục ủng hộ!"</p>
+            <p class="mt-4 font-semibold">Trần Bình</p>
+        </div>
+        <div class="review-card bg-white rounded-lg shadow p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Khách hàng" class="w-16 h-16 rounded-full mx-auto mb-4">
+            <p class="text-gray-600 italic">"Giá cả hợp lý, sản phẩm đa dạng, rất đáng để mua!"</p>
+            <p class="mt-4 font-semibold">Lê Thị Cẩm</p>
+        </div>
+    </div>
+</section>
+
+<!-- Blog/News Section -->
+<section class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Tin tức & Mẹo chăm sóc thú cưng</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="blog-card bg-white rounded-lg shadow p-4">
+                <img src="https://file.hstatic.net/200000101597/article/poodle_309752cab9084d97ae9566ec39994291_large.png" alt="Blog" class="w-full h-48 object-cover rounded-md mb-4">
+                <h3 class="text-lg font-semibold">Cách chăm sóc mèo con mới sinh</h3>
+                <p class="text-gray-600">Hướng dẫn chi tiết để chăm sóc mèo con khỏe mạnh.</p>
+                
+            </div>
+            <div class="blog-card bg-white rounded-lg shadow p-4">
+                <img src="https://npet.com.vn/wp-content/uploads/2023/11/thuc-an-cho-cho-4.jpg" alt="Blog" class="w-full h-48 object-cover rounded-md mb-4">
+                <h3 class="text-lg font-semibold">Chọn thức ăn phù hợp cho chó</h3>
+                <p class="text-gray-600">Những điều cần biết khi chọn thức ăn cho thú cưng.</p>
+               
+            </div>
+            <div class="blog-card bg-white rounded-lg shadow p-4">
+                <img src="https://cdn.shopify.com/s/files/1/0624/1746/9697/files/3005_training_600x600.jpg?v=1682674069" alt="Blog" class="w-full h-48 object-cover rounded-md mb-4">
+                <h3 class="text-lg font-semibold">Huấn luyện thú cưng cơ bản</h3>
+                <p class="text-gray-635">Mẹo huấn luyện chó và mèo hiệu quả tại nhà.</p>
+                
+            </div>
+        </div>
+    </div>
+</section>

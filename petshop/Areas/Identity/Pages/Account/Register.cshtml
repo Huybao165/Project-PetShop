@@ -1,0 +1,50 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <section class="container mx-auto px-4 py-12">
+            <div class="form-container bg-white rounded-lg shadow p-6 max-w-md mx-auto">
+                <h2 class="text-2xl font-bold text-center mb-6">Đăng ký</h2>
+
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-red-600 mb-4"></div>
+
+                    <div class="mb-4">
+                        <label for="Input_FullName" class="block text-gray-700">Họ tên</label>
+                        <input type="text" id="Input_FullName" name="Input.FullName" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Input_Email" class="block text-gray-700">Email</label>
+                        <input type="email" id="Input_Email" name="Input.Email" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Input_Password" class="block text-gray-700">Mật khẩu</label>
+                        <input type="password" id="Input_Password" name="Input.Password" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Input_ConfirmPassword" class="block text-gray-700">Xác nhận mật khẩu</label>
+                        <input type="password" id="Input_ConfirmPassword" name="Input.ConfirmPassword" class="w-full border rounded px-4 py-2" required />
+                    </div>
+
+                    <div class="mb-4 text-sm">
+                        <a asp-page="./Login" class="text-blue-600 hover:underline">Đã có tài khoản? Đăng nhập</a>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700">Đăng ký</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

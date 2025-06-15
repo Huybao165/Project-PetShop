@@ -1,0 +1,58 @@
+﻿@model petshop.Models.ProductListViewModel
+
+@{
+    ViewData["Title"] = "Tất cả sản phẩm";
+}
+
+<section class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Tất cả sản phẩm</h2>
+
+    <!-- Bộ lọc -->
+    <form method="get" class="flex justify-between mb-8">
+        <div class="flex space-x-4">
+            <!-- Danh mục -->
+            <select name="categoryId" class="border rounded px-4 py-2" onchange="this.form.submit()">
+                <option value="">Tất cả danh mục</option>
+                @foreach (var dm in Model.Danhmucs)
+                {
+                    <option value="@dm.danhmucid" selected="@(Model.SelectedCategoryId == dm.danhmucid)">
+                        @dm.danhmucname
+                    </option>
+                }
+            </select>
+
+            <!-- Giá -->
+            <select name="sortOrder" class="border rounded px-4 py-2" onchange="this.form.submit()">
+                <option value="">Sắp xếp</option>
+                <option value="price_asc" selected="@(Model.SortOrder == "price_asc")">Giá: thấp đến cao</option>
+                <option value="price_desc" selected="@(Model.SortOrder == "price_desc")">Giá: cao đến thấp</option>
+            </select>
+        </div>
+
+        <!-- Tìm kiếm -->
+        <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Tìm kiếm sản phẩm..."
+               class="border rounded px-4 py-2 w-64" />
+        <button type="submit" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Tìm</button>
+    </form>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach (var item in Model.Products)
+        {
+            <div class="bg-white shadow rounded p-4">
+                <a asp-controller="Home" asp-action="Detail" asp-route-Id="@item.Id">
+                    <img src="@item.image" alt="@item.name" class="rounded mb-4 w-full h-48 object-cover" />
+                </a>
+               
+                <h3 class="text-lg font-semibold">@item.name</h3>
+                <p class="text-gray-600">@item.price.ToString("N0") VNĐ</p>
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">
+                    <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        Thêm vào giỏ
+                    </button>
+                </a>
+               
+            </div>
+        }
+    </div>
+</section>
