@@ -40,16 +40,7 @@ Một ứng dụng web thương mại điện tử để mua sắm sản phẩm 
 - **Categories**: ID, Tên danh mục  
 - **Orders**: ID, Mã người dùng, Ngày đặt  
 - **OrderDetails**: Mã đơn hàng, Mã sản phẩm, Số lượng  
-- **Bookings**: ID, Họ tên, Số điện thoại, Ngày đặt
-
----
-
-## 📸 Giao Diện Mẫu
-
-> Bạn có thể chèn ảnh chụp màn hình dự án tại đây (tuỳ chọn).
-
-![Trang chủ](https://via.placeholder.com/600x300.png?text=Trang+Ch%E1%BB%A7)
-![Giỏ hàng](https://via.placeholder.com/600x300.png?text=Gi%E1%BB%8F+H%C3%A0ng)
+- **Cart**: ID, Họ tên, Số điện thoại, Ngày đặt
 
 ---
 
