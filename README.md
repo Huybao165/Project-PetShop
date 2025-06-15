@@ -28,7 +28,7 @@ Một ứng dụng web thương mại điện tử để mua sắm sản phẩm 
 - **Backend**: ASP.NET MVC (C#)
 - **Cơ sở dữ liệu**: Microsoft SQL Server
 - **Giao diện người dùng**: HTML, CSS, JavaScript
-- **Xác thực**: Dựa trên Session hoặc ASP.NET Identity (tuỳ chọn)
+- **Xác thực**: Dựa trên Session và ASP.NET Identity
 - **Môi trường phát triển**: Visual Studio
 
 ---
